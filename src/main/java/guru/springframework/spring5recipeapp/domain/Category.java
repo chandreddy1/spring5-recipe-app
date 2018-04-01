@@ -3,23 +3,24 @@ package guru.springframework.spring5recipeapp.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
+
 @Data
-@EqualsAndHashCode(exclude = {"recipe"})
+@EqualsAndHashCode(exclude = {"recipes"})
 @Entity
-public class Notes {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
-    private Recipe recipe;
-    @Lob
-    private String recipeNotes;
+    private String description;
+    @ManyToMany(mappedBy = "categories")
+    private Set<Recipe> recipes;
 
-    public Notes() {
+    public Category() {
     }
 
     protected boolean canEqual(Object other) {
-        return other instanceof Notes;
+        return other instanceof Category;
     }
 
 }
